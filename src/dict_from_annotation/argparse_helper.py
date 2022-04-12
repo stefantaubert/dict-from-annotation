@@ -139,10 +139,10 @@ def parse_non_empty_or_whitespace(value: str) -> str:
   return value
 
 
-def parse_one_char(value: str) -> str:
+def parse_zero_or_one_char(value: str) -> str:
   value = parse_required(value)
-  if len(value) != 1:
-    raise ArgumentTypeError("Value have to be one character!")
+  if not len(value) <= 1:
+    raise ArgumentTypeError("Value have to be empty or one character!")
   return value
 
 

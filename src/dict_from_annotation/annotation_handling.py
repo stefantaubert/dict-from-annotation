@@ -42,10 +42,13 @@ def get_pronunciations_from_annotation(annotation: Annotation, indicator: str, s
 
 def get_annotation_content(annotation: Annotation, indicator: str, separator: str) -> Pronunciation:
   assert is_annotation(annotation, indicator)
-  assert isinstance(separator, str) and len(separator) == 1
+  assert isinstance(separator, str) and len(separator) <= 1
 
   indicator_len = len(indicator)
-  annotation_content = annotation[indicator_len:-indicator_len]
+  if indicator_len == 0:
+    annotation_content = annotation
+  else:
+    annotation_content = annotation[indicator_len:-indicator_len]
   assert len(annotation_content) > 0
 
   pronunciation = tuple(deserialize_iterable(annotation_content, separator))
