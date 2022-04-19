@@ -133,3 +133,4 @@ dmypy.json
 .pyre/
 src/playground.py
 deploy-PyPI.sh
+deploy.sh
