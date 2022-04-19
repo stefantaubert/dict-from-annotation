@@ -1,16 +1,29 @@
-from collections import OrderedDict
-from tempfile import gettempdir
 from argparse import ArgumentParser, Namespace
-from logging import getLogger
-from pathlib import Path
-from tqdm import tqdm
+from collections import OrderedDict
 from functools import partial
+from logging import getLogger
 from multiprocessing.pool import Pool
+from pathlib import Path
+from tempfile import gettempdir
 from typing import Dict, Optional, Tuple
-from pronunciation_dictionary import PronunciationDict, Word, Pronunciations, save_dict_to_file, SerializationOptions
-from dict_from_annotation.annotation_handling import get_pronunciations_from_annotation, is_annotation
+
 from ordered_set import OrderedSet
-from dict_from_annotation.argparse_helper import add_chunksize_argument, add_encoding_argument, add_maxtaskperchild_argument, add_n_jobs_argument, add_serialization_group, get_optional, parse_existing_file, parse_path, parse_positive_float, parse_zero_or_one_char
+from pronunciation_dictionary import (PronunciationDict, Pronunciations,
+                                      SerializationOptions, Word, save_dict)
+from tqdm import tqdm
+
+from dict_from_annotation.annotation_handling import (
+    get_pronunciations_from_annotation, is_annotation)
+from dict_from_annotation.argparse_helper import (add_chunksize_argument,
+                                                  add_encoding_argument,
+                                                  add_maxtaskperchild_argument,
+                                                  add_n_jobs_argument,
+                                                  add_serialization_group,
+                                                  get_optional,
+                                                  parse_existing_file,
+                                                  parse_path,
+                                                  parse_positive_float,
+                                                  parse_zero_or_one_char)
 
 
 def get_parser(parser: ArgumentParser):
@@ -54,7 +67,7 @@ def get_pronunciations_files(ns: Namespace) -> bool:
   s_options = SerializationOptions(ns.parts_sep, ns.include_numbers, ns.include_weights)
 
   try:
-    save_dict_to_file(dictionary_instance, ns.dictionary, ns.serialization_encoding, s_options)
+    save_dict(dictionary_instance, ns.dictionary, ns.serialization_encoding, s_options)
   except Exception as ex:
     logger.error("Dictionary couldn't be written.")
     logger.debug(ex)
@@ -136,7 +149,7 @@ def process_get_pronunciation(word_i: int, indicator: str, separator: str, weigh
           annotation, indicator, separator, weight)
     except ValueError as error:
       logger = getLogger(__name__)
-      logger.error(f"Annotation {word} couldn't be resolved!")
+      logger.error(f"Annotation '{word}' couldn't be resolved!")
       logger.debug(error)
 
   return word_i, pronunciations

@@ -1,9 +1,10 @@
-import sys
 import argparse
 import logging
+import sys
 from argparse import ArgumentParser
 from logging import getLogger
 from typing import Callable, Generator, List, Tuple
+
 from dict_from_annotation.main import get_parser
 
 __version__ = "0.0.1"
@@ -68,6 +69,10 @@ def parse_args(args: List[str]):
     parser.print_help()
 
 
-if __name__ == "__main__":
+def run():
   arguments = sys.argv[1:]
   parse_args(arguments)
+
+
+if __name__ == "__main__":
+  run()
