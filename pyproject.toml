@@ -93,7 +93,7 @@ known_first_party = [
   "dict_from_annotation",
 ]
 known_third_party = [
-  "iterable-serialization",
-  "pronunciation-dictionary",
-  "ordered-set"
+  "iterable_serialization",
+  "pronunciation_dictionary",
+  "ordered_set"
 ]
