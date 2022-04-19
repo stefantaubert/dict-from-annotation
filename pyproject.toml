@@ -61,7 +61,7 @@ Homepage = "https://github.com/stefantaubert/dict-from-annotation"
 Issues = "https://github.com/stefantaubert/dict-from-annotation/issues"
 
 [project.scripts]
-pronunciation-dictionary-cli = "dict_from_annotation.cli:run"
+dict-from-annotation-cli = "dict_from_annotation.cli:run"
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -92,4 +92,8 @@ indent = 2
 known_first_party = [
   "dict_from_annotation",
 ]
-known_third_party = ["iterable-serialization", "pronunciation-dictionary", "ordered-set"]
+known_third_party = [
+  "iterable-serialization",
+  "pronunciation-dictionary",
+  "ordered-set"
+]

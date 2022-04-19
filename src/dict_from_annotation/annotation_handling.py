@@ -2,9 +2,7 @@ from collections import OrderedDict
 from typing import Optional
 
 from iterable_serialization import deserialize_iterable
-
-from pronunciation_dictionary import (Pronunciation, Pronunciations,
-                                      Word)
+from pronunciation_dictionary import Pronunciation, Pronunciations, Word
 
 Annotation = str
 
@@ -28,7 +26,7 @@ def is_annotation(word: Word, indicator: Optional[str]) -> bool:
   return first_and_last_is_indicator
 
 
-def get_pronunciations_from_annotation(annotation: Annotation, indicator: str, separator: str, weight: float) -> Pronunciations:
+def get_pronunciations_from_annotation(annotation: Annotation, indicator: Optional[str], separator: Optional[str], weight: float) -> Pronunciations:
   assert isinstance(weight, float)
   assert weight > 0
 
@@ -40,11 +38,14 @@ def get_pronunciations_from_annotation(annotation: Annotation, indicator: str, s
   return result
 
 
-def get_annotation_content(annotation: Annotation, indicator: str, separator: str) -> Pronunciation:
+def get_annotation_content(annotation: Annotation, indicator: Optional[str], separator: Optional[str]) -> Pronunciation:
   assert is_annotation(annotation, indicator)
-  assert isinstance(separator, str) and len(separator) <= 1
+  assert separator is None or (isinstance(separator, str) and len(separator) <= 1)
 
-  indicator_len = len(indicator)
+  indicator_len = 0
+  if indicator is not None:
+    indicator_len = len(indicator)
+
   if indicator_len == 0:
     annotation_content = annotation
   else:

@@ -8,22 +8,17 @@ from tempfile import gettempdir
 from typing import Dict, Optional, Tuple
 
 from ordered_set import OrderedSet
-from pronunciation_dictionary import (PronunciationDict, Pronunciations,
-                                      SerializationOptions, Word, save_dict)
+from pronunciation_dictionary import (PronunciationDict, Pronunciations, SerializationOptions, Word,
+                                      save_dict)
 from tqdm import tqdm
 
-from dict_from_annotation.annotation_handling import (
-    get_pronunciations_from_annotation, is_annotation)
-from dict_from_annotation.argparse_helper import (add_chunksize_argument,
-                                                  add_encoding_argument,
-                                                  add_maxtaskperchild_argument,
-                                                  add_n_jobs_argument,
-                                                  add_serialization_group,
-                                                  get_optional,
-                                                  parse_existing_file,
-                                                  parse_path,
-                                                  parse_positive_float,
-                                                  parse_zero_or_one_char)
+from dict_from_annotation.annotation_handling import (get_pronunciations_from_annotation,
+                                                      is_annotation)
+from dict_from_annotation.argparse_helper import (add_chunksize_argument, add_encoding_argument,
+                                                  add_maxtaskperchild_argument, add_n_jobs_argument,
+                                                  add_serialization_group, get_optional,
+                                                  parse_existing_file, parse_path,
+                                                  parse_positive_float, parse_zero_or_one_char)
 
 
 def get_parser(parser: ArgumentParser):
@@ -34,9 +29,10 @@ def get_parser(parser: ArgumentParser):
                       help="file containing the vocabulary (words/annotations separated by line)")
   parser.add_argument("dictionary", metavar='dictionary', type=parse_path,
                       help="path to output created dictionary")
-  parser.add_argument("--indicator", type=str, help="indicator for an annotation", default="/")
+  parser.add_argument("--indicator", type=get_optional(str),
+                      help="indicator for an annotation (can also be empty)", default="/")
   parser.add_argument("--separator", type=get_optional(parse_zero_or_one_char),
-                      metavar='SYMBOL', help="separator of symbols in an annotation (maximum one character)", default="|")
+                      metavar='SYMBOL', help="separator of symbols in an annotation (has to be empty or a single character)", default="|")
   parser.add_argument("--weight", type=parse_positive_float,
                       help="weight to assign for each annotation", default=1.0)
   parser.add_argument("--rest-out", metavar="PATH", type=get_optional(parse_path),
@@ -92,7 +88,7 @@ def get_pronunciations_files(ns: Namespace) -> bool:
   return True
 
 
-def get_pronunciations(vocabulary: OrderedSet[Word], indicator: str, separator: str, weight: float, n_jobs: int, maxtasksperchild: Optional[int], chunksize: int) -> Tuple[PronunciationDict, OrderedSet[Word]]:
+def get_pronunciations(vocabulary: OrderedSet[Word], indicator: Optional[str], separator: Optional[str], weight: float, n_jobs: int, maxtasksperchild: Optional[int], chunksize: int) -> Tuple[PronunciationDict, OrderedSet[Word]]:
   lookup_method = partial(
     process_get_pronunciation,
     indicator=indicator,
@@ -137,7 +133,7 @@ def __init_pool_prepare_cache_mp(words: OrderedSet[Word]) -> None:
   process_unique_words = words
 
 
-def process_get_pronunciation(word_i: int, indicator: str, separator: str, weight: float) -> Tuple[int, Optional[Pronunciations]]:
+def process_get_pronunciation(word_i: int, indicator: Optional[str], separator: Optional[str], weight: float) -> Tuple[int, Optional[Pronunciations]]:
   global process_unique_words
   assert 0 <= word_i < len(process_unique_words)
   word = process_unique_words[word_i]
