@@ -5,7 +5,7 @@
 [![MIT](https://img.shields.io/github/license/stefantaubert/dict-from-annotation.svg)](LICENSE)
 [![PyPI](https://img.shields.io/pypi/wheel/dict-from-annotation.svg)](https://pypi.python.org/pypi/dict-from-annotation/#files)
 ![PyPI](https://img.shields.io/pypi/implementation/dict-from-annotation.svg)
-[![PyPI](https://img.shields.io/github/commits-since/stefantaubert/dict-from-annotation/latest/main.svg)](https://github.com/stefantaubert/dict-from-annotation/compare/v0.0.2...master)
+[![PyPI](https://img.shields.io/github/commits-since/stefantaubert/dict-from-annotation/latest/master.svg)](https://github.com/stefantaubert/dict-from-annotation/compare/v0.0.2...master)
 
 Command-line interface (CLI) to create pronunciation dictionaries based on manual annotations.
 
