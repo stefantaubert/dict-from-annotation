@@ -1,14 +1,14 @@
 import argparse
-import importlib
 import logging
 import sys
 from argparse import ArgumentParser
+from importlib.metadata import version
 from logging import getLogger
 from typing import Callable, Generator, List, Tuple
 
 from dict_from_annotation.main import get_parser
 
-__version__ = importlib.metadata.version("dict-from-annotation")
+__version__ = version("dict-from-annotation")
 
 INVOKE_HANDLER_VAR = "invoke_handler"
 

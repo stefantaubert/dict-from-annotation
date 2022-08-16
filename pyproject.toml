@@ -1,23 +1,16 @@
-[build-system]
-requires = [
-  "setuptools >= 40.9.0",
-  "wheel",
-]
-build-backend = "setuptools.build_meta"
-
 [project]
 name = "dict-from-annotation"
-version = "0.0.1"
-description = "Create pronunciation dictionary based on annotations."
+version = "0.0.2"
+description = "Command-line interface (CLI) to create a pronunciation dictionary based on annotations."
 readme = "README.md"
-requires-python = ">=3.6"
+requires-python = ">=3.8"
 license = {text = "MIT"}
 authors = [
-  {email = "stefan.taubert@posteo.me"},
+  {email = "pypi@stefantaubert.com"},
   {name = "Stefan Taubert"}
 ]
 maintainers = [
-  {email = "stefan.taubert@posteo.me"},
+  {email = "pypi@stefantaubert.com"},
   {name = "Stefan Taubert"}
 ]
 keywords = [
@@ -43,17 +36,16 @@ classifiers = [
   "Operating System :: Microsoft :: Windows",
   "Programming Language :: Python",
   "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.6",
-  "Programming Language :: Python :: 3.7",
   "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "License :: OSI Approved :: MIT License",
 ]
 dependencies = [
-  "iterable-serialization >= 0.0.1",
-  "pronunciation-dictionary >= 0.0.3",
-  "ordered-set >= 4.1.0"
+  "iterable-serialization>=0.0.1",
+  "pronunciation-dictionary>=0.0.4",
+  "ordered-set>=4.1.0",
+  "tqdm",
 ]
 
 [project.urls]
@@ -97,3 +89,25 @@ known_third_party = [
   "pronunciation_dictionary",
   "ordered_set"
 ]
+
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+envlist = py{38,39,310}
+isolated_build = True
+
+[testenv]
+deps = 
+  pytest
+commands = 
+  pytest
+  dict-from-annotation-cli
+  dict-from-annotation-cli -v
+"""
+
+[build-system]
+requires = [
+  "setuptools >= 40.9.0",
+  "wheel",
+]
+build-backend = "setuptools.build_meta"

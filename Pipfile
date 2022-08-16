@@ -11,12 +11,16 @@ pycodestyle = "*"
 isort = "*"
 rope = "*"
 pytest = "*"
-cx-freeze = "*"
+autoflake = "*"
+twine = "*"
+build = "*"
+tox = "*"
 
 [packages]
 iterable-serialization = ">=0.0.1"
 pronunciation-dictionary = ">=0.0.3"
 ordered-set = ">=4.1.0"
+tqdm = "*"
 
 [requires]
 python_version = "3.8"
